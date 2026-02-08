@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For K-Lee ❤️</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #ffe6e6; /* Light pink background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 90%;
+            width: 400px;
+        }
+
+        h1 { color: #d63384; margin-bottom: 20px; }
+        p { font-size: 18px; color: #333; }
+        
+        button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            margin: 10px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover { transform: scale(1.1); background-color: #ff1a1a; }
+        
+        /* Secondary button style */
+        .btn-no { background-color: #a3a3a3; }
+        .btn-no:hover { background-color: #7a7a7a; }
+
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 70%;
+            margin-top: 10px;
+        }
+
+        /* Hide all steps by default, except step 1 */
+        .step { display: none; }
+        #step1 { display: block; }
+
+        /* Step 5 Images */
+        .gif-container img {
+            width: 100px; /* Adjust based on your GIF size */
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="step1" class="step">
+            <h1>Do you have a valentine?</h1>
+            <button onclick="goToStep('step2-1')">Yes</button>
+            <button class="btn-no" onclick="goToStep('step2')">No</button>
+        </div>
+
+        <div id="step2" class="step">
+            <h1>HELL YEAH BABY</h1>
+            <button onclick="goToStep('step3')">CONTINUE</button>
+        </div>
+
+        <div id="step2-1" class="step">
+            <h1>Aww man who?</h1>
+            <p>Type their name and press Enter:</p>
+            <input type="text" id="whoInput" placeholder="Type here...">
+        </div>
+
+        <div id="step3" class="step">
+            <h1>Listen to this po...</h1>
+            <p>Wait for it to finish!</p>
+            
+            <audio id="loveSong" controls>
+                <source src="song.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+
+            <br><br>
+            <button id="audioContinueBtn" style="display:none;" onclick="goToStep('step4')">CONTINUE</button>
+        </div>
+
+        <div id="step4" class="step">
+            <h1>Will You Be My Valentine K-Lee?</h1>
+            <button onclick="goToStep('step5')">Yes</button>
+            <button class="btn-no" onclick="goToStep('step5-1')">No</button>
+        </div>
+
+        <div id="step5" class="step">
+            <div class="gif-container">
+                <img src="love.gif" alt="Cute GIF"> </div>
+            <h1>I'm glad you chose me to be your valentine love &lt;3</h1>
+            <div class="gif-container">
+                <img src="love.gif" alt="Cute GIF">
+            </div>
+        </div>
+
+        <div id="step5-1" class="step">
+            <h1>You sure?</h1>
+            <button onclick="alert('Think again!');">Yes</button> 
+            <button class="btn-no" onclick="goToStep('step5')">No</button>
+        </div>
+
+    </div>
+
+    <script>
+        // FUNCTION TO SWITCH STEPS
+        function goToStep(stepId) {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(step => step.style.display = 'none');
+            // Show the requested step
+            document.getElementById(stepId).style.display = 'block';
+        }
+
+        // LOGIC FOR STEP 2.1 (INPUT)
+        const inputField = document.getElementById("whoInput");
+        inputField.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                let name = inputField.value;
+                // "Save" it by logging to console (Visual Studio Output)
+                console.log("Valentine Name Saved: " + name); 
+                alert("Saved! (Check Console)"); 
+                goToStep('step3'); // Move to step 3 after entering
+            }
+        });
+
+        // LOGIC FOR STEP 3 (AUDIO)
+        const audio = document.getElementById("loveSong");
+        const continueBtn = document.getElementById("audioContinueBtn");
+
+        // When audio finishes playing...
+        audio.onended = function() {
+            continueBtn.style.display = "inline-block"; // Show the button
+        };
+    </script>
+
+</body>
+</html>
